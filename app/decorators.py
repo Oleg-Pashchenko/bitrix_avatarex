@@ -3,6 +3,7 @@ import time
 from functools import wraps
 
 from aiohttp import web
+from urllib.parse import parse_qs
 
 
 async def request_processing(func):
@@ -13,7 +14,9 @@ async def request_processing(func):
             try:
                 data = dict(json.loads(await request.text()))
             except Exception as e:
-                print(e)
+                url_encoded_data = await request.read()
+                parsed_data = parse_qs(url_encoded_data.decode('utf-8'))
+                data = {key: value[0] for key, value in parsed_data.items()}
             answer = await func(data)
             status = True
         except Exception as e:
