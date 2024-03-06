@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  bitrix:
+    restart: always
+    build:
+      context: .
+    ports:
+      - "5004:5004"
