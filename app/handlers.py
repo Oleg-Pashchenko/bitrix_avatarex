@@ -5,6 +5,7 @@ from app.validators import *
 
 @request_processing
 async def new_message_handler(data: dict):
+    print(data)
     data = NewMessageData(**data)
     return await methods.new_message(data)
 
