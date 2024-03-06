@@ -21,7 +21,7 @@ async def request_processing(func):
             status = True
         except Exception as e:
             answer, status = {'error': str(e)}, False
-
+        print(status, answer)
         return web.json_response(
             {
                 'status': status,
