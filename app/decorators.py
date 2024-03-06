@@ -8,11 +8,12 @@ from aiohttp import web
 async def request_processing(func):
     @wraps(func)
     async def wrapper(request):
-        print('yes')
         start_time = time.time()
         try:
-            data = dict(json.loads(await request.text()))
-
+            try:
+                data = dict(json.loads(await request.text()))
+            except Exception as e:
+                print(e)
             answer = await func(data)
             status = True
         except Exception as e:
