@@ -83,3 +83,10 @@ def set_message_finished(message_id):
 
 def save_setting(client_id, rest_hook):
     save(Bitrix_Setting(btx_hook=rest_hook, app_id=client_id))
+
+
+def delete_bots(rest_hook_value):
+    rest_hook_value = rest_hook_value.split('.ru/')[0]
+    session.query(Bitrix_Setting).filter(Bitrix_Setting.btx_hook.like(f'%{rest_hook_value}%')).delete()
+    session.commit()
+

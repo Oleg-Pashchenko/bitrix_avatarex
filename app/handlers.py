@@ -25,6 +25,7 @@ async def get_info_handler(data: dict):
 @request_processing
 async def connect_handler(data: dict):
     data = ConnectData(**data)
+    # Удалить все существующие интеграции Avatarex из нашей базы и Bitrix
     return await methods.create_bot(data)
 
 

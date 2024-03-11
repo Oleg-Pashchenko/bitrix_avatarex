@@ -1,3 +1,4 @@
+import asyncio
 import random
 
 from fast_bitrix24 import Bitrix
@@ -31,7 +32,7 @@ class BitrixAvatarex:
         )
 
     def register_bot(self):
-        client_id = random.randint(1000000, 10000000)
+        client_id = random.randint(1, 10000000)
         self.bitrix.call(
             'imbot.register',
             items={
@@ -72,7 +73,17 @@ class BitrixAvatarex:
             return {}
 
 
+
 def get_pipeline_and_status(deal):
     status = deal.get('STAGE_ID', 'NEW')
     pipeline = 0 if status == 'NEW' else int(status.split(':')[0].replace('C', ''))
     return pipeline, status
+
+
+async def main():
+    b = BitrixAvatarex(webhook='https://avatarex.bitrix24.ru/rest/42/33m1de0ek89tetwo/')
+    await b.delete_bots()
+
+
+if __name__ == '__main__':
+    asyncio.run(main())
