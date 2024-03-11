@@ -51,7 +51,8 @@ def save(obj):
             session.add(obj)
             session.commit()
             break
-        except OperationalError:
+        except OperationalError as e:
+            print(e)
             session.rollback()
             time.sleep(10)
 
@@ -66,6 +67,7 @@ def add_bitrix_message(text, pipeline_id, status_id, app_id, rest_hook, dialog_i
         dialog_id=dialog_id,
         bot_id=bot_id
     )
+    print(new_message)
     save(new_message)
 
 
