@@ -86,8 +86,8 @@ def get_pipeline_and_status(deal):
 
 async def main():
     b = BitrixAvatarex(webhook='https://b24-diyu7k.bitrix24.ru/rest/1/320mlzqaz81oy0rj/')
-    response = await b.register_bot()
-    print(response)
+    #response = await b.get_deal(6)
+    #print(response)
 
 if __name__ == '__main__':
     asyncio.run(main())
