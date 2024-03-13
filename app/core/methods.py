@@ -36,7 +36,6 @@ async def get_account(data: GetInfoData):
 
 async def create_bot(data: ConnectData):
     btx = BitrixAvatarex(webhook=data.rest_hook)
-    database.delete_bots(data.rest_hook)
     cleint_id = await btx.register_bot()
     database.save_setting(cleint_id, data.rest_hook)
 
