@@ -9,12 +9,25 @@ class NewMessageData(BaseModel):
     message: str = None
     application_token: str = None
 
+
+    @classmethod
+    def get_deal_id(cls, data_dict):
+        deal_id_part = str(data_dict).split('DEAL|')[1]
+        deal_id = ''
+        for s in deal_id_part:
+            if not s.isdigit():
+                break
+
+            deal_id += s
+        deal_id = int(deal_id)
+        return deal_id
+
     @classmethod
     def from_dict(cls, data: dict):
         return cls(
             bot_id=next((re.search(r'\[BOT\]\[(\d+)\]', key).group(1) for key in data if
                          '[BOT][' in key and '][BOT_ID]' in key), None),
-            deal_id = int(''.join(c for c in str(data).split('DEAL|', 1)[-1] if c.isdigit())),
+            deal_id = NewMessageData.get_deal_id(data),
             dialog_id=data['data[PARAMS][DIALOG_ID]'],
             message=data['data[PARAMS][MESSAGE]'],
             application_token=data['auth[application_token]']
