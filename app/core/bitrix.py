@@ -39,7 +39,7 @@ class BitrixAvatarex:
         self.bitrix.call(
             'imbot.register',
             items={
-                'CODE': 'Avatarex',
+                'CODE': 'Avatarex AI Assistant',
                 'TYPE': 'S',
                 'CLIENT_ID': client_id,
                 'EVENT_HANDLER': 'http://bitrix.avatarex.tech/',
