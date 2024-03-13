@@ -23,6 +23,7 @@ async def set_field(data: SetFieldData):
     btx = BitrixAvatarex(webhook=data.rest_hook)
     await btx.set_field(data.lead_id, data.field_name, data.filed_value)
 
+
 async def send_message(data: SendMessageData):
     btx = BitrixAvatarex(webhook=data.rest_hook)
     await btx.send_message(data.dialog_id, data.message, data.bot_id, data.client_id)
@@ -31,12 +32,10 @@ async def send_message(data: SendMessageData):
 
 async def get_account(data: GetInfoData):
     btx = BitrixAvatarex(webhook=data.rest_hook)
-    return await btx.get_pipeplines_and_stages()
-    return  {'pipelines': btx.get_pipeplines_and_stages(), 'fields': btx.get_all_fields()}
+    return {'pipelines': await btx.get_pipeplines_and_stages(), 'fields': await btx.get_all_fields()}
 
 
 async def create_bot(data: ConnectData):
     btx = BitrixAvatarex(webhook=data.rest_hook)
     cleint_id = await btx.register_bot()
     database.save_setting(cleint_id, data.rest_hook)
-
