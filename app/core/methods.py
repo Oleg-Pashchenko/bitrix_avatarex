@@ -31,7 +31,8 @@ async def send_message(data: SendMessageData):
 
 async def get_account(data: GetInfoData):
     btx = BitrixAvatarex(webhook=data.rest_hook)
-    return await {'pipelines': btx.get_pipeplines_and_stages(), 'fields': btx.get_all_fields()}
+    return await btx.get_pipeplines_and_stages()
+    return  {'pipelines': btx.get_pipeplines_and_stages(), 'fields': btx.get_all_fields()}
 
 
 async def create_bot(data: ConnectData):
