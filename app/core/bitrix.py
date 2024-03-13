@@ -31,6 +31,9 @@ class BitrixAvatarex:
             }
         )
 
+    async def set_field(self, lead_id, field_name, field_value):
+        pass
+
     def register_bot(self):
         client_id = random.randint(1, 10000000)
         self.bitrix.call(
@@ -82,8 +85,8 @@ def get_pipeline_and_status(deal):
 
 async def main():
     b = BitrixAvatarex(webhook='https://avatarex.bitrix24.ru/rest/42/33m1de0ek89tetwo/')
-    await b.delete_bots()
-
+    response = await b.get_lead(1)
+    print(response)
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    pass

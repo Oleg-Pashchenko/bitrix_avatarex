@@ -32,3 +32,9 @@ async def connect_handler(data: dict):
 async def get_lead_handler(data: dict):
     data = GetLeadData(**data)
     return await methods.get_lead(data)
+
+
+@request_processing
+async def set_field_handler(data: dict):
+    data = SetFieldData(**data)
+    return await methods.set_field(data)

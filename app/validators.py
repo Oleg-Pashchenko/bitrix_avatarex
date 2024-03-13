@@ -41,3 +41,10 @@ class ConnectData(BaseModel):
 class GetLeadData(BaseModel):
     rest_hook: str
     lead_id: int
+
+
+class SetFieldData(BaseModel):
+    rest_hook: str
+    lead_id: int
+    field_name: str
+    filed_value: str

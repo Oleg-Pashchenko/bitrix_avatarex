@@ -19,6 +19,10 @@ async def get_lead(data: GetLeadData):
     return await btx.get_lead(data.lead_id)
 
 
+async def set_field(data: SetFieldData):
+    btx = BitrixAvatarex(webhook=data.rest_hook)
+    await btx.set_field(data.lead_id, data.field_name, data.filed_value)
+
 async def send_message(data: SendMessageData):
     btx = BitrixAvatarex(webhook=data.rest_hook)
     await btx.send_message(data.dialog_id, data.message, data.bot_id, data.client_id)
@@ -35,3 +39,4 @@ async def create_bot(data: ConnectData):
     database.delete_bots(data.rest_hook)
     cleint_id = btx.register_bot()
     database.save_setting(cleint_id, data.rest_hook)
+
