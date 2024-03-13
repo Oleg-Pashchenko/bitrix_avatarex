@@ -25,7 +25,7 @@ async def routes():
     app.router.add_post('/send-message/', await send_message_handler)
     app.router.add_post('/get-info/', await get_info_handler)
     app.router.add_post('/connect/', await connect_handler)
-    app.router.add_post('/get-lead/', await get_lead_handler)
+    # app.router.add_post('/get-lead/', await get_lead_handler)
     app.router.add_post('/set-field/', await set_field_handler)
 
 

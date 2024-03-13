@@ -8,11 +8,9 @@ async def new_message(data: NewMessageData):
     print(btx_hook)
     btx = BitrixAvatarex(webhook=btx_hook)
     deal = await btx.get_deal(data.deal_id)
-    print(deal)
     pipeline, status = bitrix.get_pipeline_and_status(deal)
-    print(pipeline, status)
     database.add_bitrix_message(data.message, pipeline, status, data.application_token, btx_hook, data.dialog_id,
-                                data.bot_id)
+                                data.bot_id, deal)
 
 
 async def get_lead(data: GetLeadData):
@@ -32,7 +30,7 @@ async def send_message(data: SendMessageData):
 
 async def get_account(data: GetInfoData):
     btx = BitrixAvatarex(webhook=data.rest_hook)
-    return await btx.get_pipeplines_and_stages()
+    return await {'pipelines': btx.get_pipeplines_and_stages(), 'fields': btx.get_all_fields()}
 
 
 async def create_bot(data: ConnectData):

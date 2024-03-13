@@ -31,8 +31,14 @@ class BitrixAvatarex:
             }
         )
 
-    async def set_field(self, lead_id, field_name, field_value):
-        pass
+    async def set_field(self, deal_id, field_id, field_value):
+        response = await self.bitrix.call(method='crm.deal.update', items={
+            'id': deal_id,
+            'fields': {
+                field_id: field_value
+            }
+        })
+        print(response)
 
     async def register_bot(self):
         client_id = random.randint(1, 10000000)
@@ -76,6 +82,21 @@ class BitrixAvatarex:
         except:
             return {}
 
+    async def get_all_fields(self):
+        fields = await self.bitrix.call(method='crm.deal.fields', items={
+            'order': {
+                'ID': 'desc'
+            }
+        })
+
+        answer = {}
+        for f in fields.keys():
+            if 'UF_CRM_' in f:
+                answer[fields[f]['listLabel']] = {'code': fields[f]['title'],
+                                                  'enum': fields[f]['items']
+                                                  }
+        return answer
+
 
 
 def get_pipeline_and_status(deal):
@@ -86,8 +107,15 @@ def get_pipeline_and_status(deal):
 
 async def main():
     b = BitrixAvatarex(webhook='https://b24-diyu7k.bitrix24.ru/rest/1/320mlzqaz81oy0rj/')
+    # resp = await b.fill_field(2, 'UF_CRM_1710323772028', '50')
+    # print(resp)
+    response = await b.get_all_fields()
+    print(response)
     response = await b.get_deal(2)
     print(response)
 
 if __name__ == '__main__':
     asyncio.run(main())
+
+
+# В сценарий нового сообщения

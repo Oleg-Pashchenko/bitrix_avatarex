@@ -3,7 +3,7 @@ import time
 
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, create_engine, DateTime, BigInteger, Boolean
+from sqlalchemy import Column, Integer, String, create_engine, DateTime, BigInteger, Boolean, JSON
 from sqlalchemy.orm import sessionmaker
 import dotenv
 import os
@@ -25,6 +25,7 @@ class Bitrix_Message(Base):
     is_finished = Column(Boolean, default=False)
     dialog_id = Column(String)
     bot_id = Column(Integer)
+    deal = Column(JSON, default={})
 
 
 class Bitrix_Setting(Base):
@@ -65,7 +66,8 @@ def add_bitrix_message(text, pipeline_id, status_id, app_id, rest_hook, dialog_i
         app_id=app_id,
         rest_hook=rest_hook,
         dialog_id=dialog_id,
-        bot_id=bot_id
+        bot_id=bot_id,
+        deal=deal
     )
     print(new_message)
     save(new_message)
