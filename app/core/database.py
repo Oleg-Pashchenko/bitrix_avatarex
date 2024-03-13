@@ -58,7 +58,7 @@ def save(obj):
             time.sleep(10)
 
 
-def add_bitrix_message(text, pipeline_id, status_id, app_id, rest_hook, dialog_id, bot_id):
+def add_bitrix_message(text, pipeline_id, status_id, app_id, rest_hook, dialog_id, bot_id, deal):
     new_message = Bitrix_Message(
         text=text,
         pipeline_id=pipeline_id,
