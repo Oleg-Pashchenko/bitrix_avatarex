@@ -34,9 +34,9 @@ class BitrixAvatarex:
     async def set_field(self, lead_id, field_name, field_value):
         pass
 
-    def register_bot(self):
+    async def register_bot(self):
         client_id = random.randint(1, 10000000)
-        self.bitrix.call(
+        response = await self.bitrix.call(
             'imbot.register',
             items={
                 'CODE': 'Avatarex AI Assistant',
@@ -45,15 +45,16 @@ class BitrixAvatarex:
                 'EVENT_HANDLER': 'http://bitrix.avatarex.tech/',
                 'OPENLINE': 'Y',
                 'PROPERTIES': {
-                    'NAME': "Avatarex",
+                    'NAME': "Avatarex AI Assistant",
                     'LAST_NAME': "",
                     "COLOR": "PURPLE",
                     'EMAIL': "odpash.itmo@gmail.com",
                     "PERSONAL_BIRTHDAY": '2003-12-23',
-                    'WORK_POSITION': "AI - assistant",
+                    'WORK_POSITION': "Avatarex AI - assistant",
                 }
             }
         )
+        print(response)
         return client_id
 
     async def get_pipeplines_and_stages(self):
@@ -84,9 +85,9 @@ def get_pipeline_and_status(deal):
 
 
 async def main():
-    b = BitrixAvatarex(webhook='https://avatarex.bitrix24.ru/rest/42/33m1de0ek89tetwo/')
-    response = await b.get_lead(1)
+    b = BitrixAvatarex(webhook='https://b24-diyu7k.bitrix24.ru/rest/1/320mlzqaz81oy0rj/')
+    response = await b.register_bot()
     print(response)
 
 if __name__ == '__main__':
-    pass
+    asyncio.run(main())
