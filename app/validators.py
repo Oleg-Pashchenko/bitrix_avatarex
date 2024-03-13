@@ -4,7 +4,7 @@ import re
 
 class NewMessageData(BaseModel):
     bot_id: str = None
-    deal_id: str = None
+    deal_id: int = None
     dialog_id: str = None
     message: str = None
     application_token: str = None
