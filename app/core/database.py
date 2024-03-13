@@ -26,6 +26,7 @@ class Bitrix_Message(Base):
     dialog_id = Column(String)
     bot_id = Column(Integer)
     deal = Column(JSON, default={})
+    fields_info = Column(JSON, default={})
 
 
 class Bitrix_Setting(Base):
@@ -58,7 +59,7 @@ def save(obj):
             time.sleep(10)
 
 
-def add_bitrix_message(text, pipeline_id, status_id, app_id, rest_hook, dialog_id, bot_id, deal):
+def add_bitrix_message(text, pipeline_id, status_id, app_id, rest_hook, dialog_id, bot_id, deal, fields_info):
     new_message = Bitrix_Message(
         text=text,
         pipeline_id=pipeline_id,
@@ -67,7 +68,8 @@ def add_bitrix_message(text, pipeline_id, status_id, app_id, rest_hook, dialog_i
         rest_hook=rest_hook,
         dialog_id=dialog_id,
         bot_id=bot_id,
-        deal=deal
+        deal=deal,
+        fields_info=fields_info
     )
     print(new_message)
     save(new_message)

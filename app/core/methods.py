@@ -9,8 +9,9 @@ async def new_message(data: NewMessageData):
     btx = BitrixAvatarex(webhook=btx_hook)
     deal = await btx.get_deal(data.deal_id)
     pipeline, status = bitrix.get_pipeline_and_status(deal)
+    fields_info = await btx.get_all_fields()
     database.add_bitrix_message(data.message, pipeline, status, data.application_token, btx_hook, data.dialog_id,
-                                data.bot_id, deal)
+                                data.bot_id, deal, fields_info)
 
 
 async def get_lead(data: GetLeadData):
