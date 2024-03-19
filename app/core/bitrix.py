@@ -92,9 +92,12 @@ class BitrixAvatarex:
         answer = {}
         for f in fields.keys():
             if 'UF_CRM_' in f:
-                answer[fields[f]['listLabel']] = {'code': fields[f]['title'],
+                try:
+                    answer[fields[f]['listLabel']] = {'code': fields[f]['title'],
                                                   'enum': fields[f]['items']
                                                   }
+                except:
+                    pass
         return answer
 
 
@@ -106,18 +109,19 @@ def get_pipeline_and_status(deal):
 
 
 async def main():
-    b = BitrixAvatarex(webhook='https://guruhaustest.bitrix24.ru/rest/1/9m9qk96dith5awjt/')
-    resp = await b.register_bot()
-    print(resp)
+    b = BitrixAvatarex(webhook='https://a-fox.bitrix24.ru/rest/16/riufnya1fi8561jm/')
+    # resp = await b.register_bot()
+    # print(resp)
     # resp = await b.fill_field(2, 'UF_CRM_1710323772028', '50')
     # print(resp)
     response = await b.get_all_fields()
+    #print(response)
+    # response = await b.get_deal(7)
     print(response)
-   #  response = await b.get_deal(2)
    # print(response)
 
-# if __name__ == '__main__':
-#    asyncio.run(main())
+if __name__ == '__main__':
+   asyncio.run(main())
 
 
 # В сценарий нового сообщения
