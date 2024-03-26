@@ -7,7 +7,10 @@ async def new_message(data: NewMessageData):
     btx_hook = database.get_btx_hook(data.application_token)
     print(btx_hook)
     btx = BitrixAvatarex(webhook=btx_hook)
-    deal = await btx.get_deal(data.deal_id)
+    if 'data[PARAMS][MESSAGE_TYPE]' == 'L':
+        deal = await btx.get_lead(data.lead_id)
+    else:
+        deal = await btx.get_deal(data.deal_id)
     pipeline, status = bitrix.get_pipeline_and_status(deal)
     fields_info = await btx.get_all_fields()
     database.add_bitrix_message(data.message, pipeline, status, data.application_token, btx_hook, data.dialog_id,
