@@ -103,7 +103,7 @@ class BitrixAvatarex:
 
 def get_pipeline_and_status(deal):
     status = deal.get('STAGE_ID', None)
-    if status:
+    if not status:
         status = status.get('STATUS_ID', 'NEW')
     try:
         pipeline = 0 if status == 'NEW' else int(status.split(':')[0].replace('C', ''))
