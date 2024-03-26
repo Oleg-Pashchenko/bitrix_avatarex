@@ -32,7 +32,7 @@ class BitrixAvatarex:
         )
 
     async def set_field(self, deal_id, field_id, field_value):
-        response = await self.bitrix.call(method='crm.deal.update', items={
+        response = await self.bitrix.call(method='crm.lead.update', items={
             'id': deal_id,
             'fields': {
                 field_id: field_value
@@ -83,19 +83,18 @@ class BitrixAvatarex:
             return {}
 
     async def get_all_fields(self):
-        fields = await self.bitrix.call(method='crm.deal.fields', items={
+        fields = await self.bitrix.call(method='crm.lead.fields', items={
             'order': {
                 'ID': 'desc'
             }
         })
-
         answer = {}
         for f in fields.keys():
             if 'UF_CRM_' in f:
                 try:
                     answer[fields[f]['listLabel']] = {'code': fields[f]['title'],
-                                                  'enum': fields[f]['items']
-                                                  }
+                                                      'enum': fields[f]['items']
+                                                      }
                 except:
                     pass
         return answer
@@ -109,19 +108,11 @@ def get_pipeline_and_status(deal):
 
 
 async def main():
-    b = BitrixAvatarex(webhook='https://a-fox.bitrix24.ru/rest/16/riufnya1fi8561jm/')
-    # resp = await b.register_bot()
-    # print(resp)
-    # resp = await b.fill_field(2, 'UF_CRM_1710323772028', '50')
-    # print(resp)
+    deals_wh = 'https://b24-5r9tse.bitrix24.ru/rest/1/51suk4hoa3ksawbp/'
+    leads_wh = 'https://b24-1x2ywp.bitrix24.ru/rest/1/2m3yqqnu2etjcjrt/'
+    b = BitrixAvatarex(webhook=leads_wh)
     response = await b.get_all_fields()
-    #print(response)
-    # response = await b.get_deal(7)
     print(response)
-   # print(response)
 
 if __name__ == '__main__':
-   asyncio.run(main())
-
-
-# В сценарий нового сообщения
+    asyncio.run(main())
