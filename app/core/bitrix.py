@@ -21,6 +21,7 @@ class BitrixAvatarex:
         return response
 
     async def send_message(self, dialog_id, message, bot_id, client_id):
+        print('Send message')
         await self.bitrix.call(
             'imbot.message.add',
             items={
