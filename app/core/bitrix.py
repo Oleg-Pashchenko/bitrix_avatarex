@@ -65,9 +65,11 @@ class BitrixAvatarex:
         return client_id
 
     async def get_pipeplines_and_stages(self):
+
         try:
             pipelines = await self.bitrix.get_all(method='crm.category.list', params={'entityTypeId': 2})
-            return {
+
+            result = {
                 pipeline['id']: {
                     'name': pipeline['name'],
                     'id': pipeline['id'],
@@ -80,6 +82,19 @@ class BitrixAvatarex:
                     }
                 } for pipeline in pipelines
             }
+            leads = await self.bitrix.get_all(method='crm.status.list', params={'filter': {'ENTITY_ID': 'STATUS'}})
+            stages = {}
+            for lead in leads:
+                stages[lead['STATUS_ID']] = {
+                    'name': lead['NAME'],
+                    'id': lead['STATUS_ID']
+                }
+            result[-1] = {
+                'name': 'Лиды',
+                'id': -1,
+                'stages': stages
+            }
+            return result
         except:
             return {}
 
@@ -116,7 +131,7 @@ async def main():
     deals_wh = 'https://b24-5r9tse.bitrix24.ru/rest/1/51suk4hoa3ksawbp/'
     leads_wh = 'https://b24-1x2ywp.bitrix24.ru/rest/1/2m3yqqnu2etjcjrt/'
     b = BitrixAvatarex(webhook=leads_wh)
-    response = await b.get_lead(3)
+    response = await b.get_pipeplines_and_stages()
     print(response)
 
 
